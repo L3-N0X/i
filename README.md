@@ -20,7 +20,7 @@ htpasswd -c nginx/htpasswd yourusername
 docker compose up -d
 ```
 
-## Manual Installation
+## Manual Installation (not recommended)
  - Open `i.go` and edit the configuration (set the `root` and `webRoot` variable to your desired values)
  - Compile with `go build`
  - Create a init.d service (if you are using another system skip this part)
