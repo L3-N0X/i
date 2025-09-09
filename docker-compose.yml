@@ -1,0 +1,40 @@
+services:
+  # File upload service
+  i-upload:
+    build: .
+    container_name: i-upload
+    restart: unless-stopped
+    environment:
+      - ROOT=/app/uploads/
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - i-network
+    # Only expose internally, nginx will be the public interface
+    ports:
+      - "127.0.0.1:9005:9005"
+
+  # Nginx reverse proxy and file server
+  nginx:
+    image: nginx:alpine
+    container_name: i-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./uploads:/var/www/uploads:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/htpasswd:/etc/nginx/htpasswd:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - i-upload
+    networks:
+      - i-network
+
+networks:
+  i-network:
+    driver: bridge
+
+volumes:
+  uploads:

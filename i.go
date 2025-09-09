@@ -16,9 +16,9 @@ import (
 
 var (
 	// the address to listen on
-	address = "127.0.0.1:9005"
+	address = "0.0.0.0:9005"
 	// the directory to save the images in
-	root = "/var/www/i.fourtf.com/"
+	root = getEnvOrDefault("ROOT", "/app/uploads/")
 
 	// maximum age for the files
 	// the program will delete the files older than maxAge every 2 hours
@@ -31,6 +31,13 @@ var (
 	adjectives            = make([]string, 0)
 	filetypes             = make(map[string]string)
 )
+
+func getEnvOrDefault(key, defaultValue string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return defaultValue
+}
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
