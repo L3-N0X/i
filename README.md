@@ -7,7 +7,20 @@ It does ***not*** serve the files or handle authentification. It is meant to be 
 ## what you need to build
  - golang
 
-## how to use
+## Docker Setup (Recommended)
+
+For a complete setup with nginx reverse proxy and authentication, see [DOCKER.md](DOCKER.md).
+
+Quick start with Docker:
+```bash
+# Create authentication file
+htpasswd -c nginx/htpasswd yourusername
+
+# Start the services
+docker compose up -d
+```
+
+## Manual Installation
  - Open `i.go` and edit the configuration (set the `root` and `webRoot` variable to your desired values)
  - Compile with `go build`
  - Create a init.d service (if you are using another system skip this part)
