@@ -15,8 +15,9 @@ COPY i.go ./
 COPY adjectives1.txt ./
 COPY filetypes.json ./
 
-# Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o i ./i.go
+# Build the application for the target architecture
+ARG TARGETARCH
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -a -installsuffix cgo -o i ./i.go
 
 # Final stage
 FROM alpine:latest

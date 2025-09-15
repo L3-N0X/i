@@ -104,6 +104,11 @@ services:
     # ... rest of configuration
 ```
 
+**Multi-Architecture Support:** The Docker images are built for both `linux/amd64` and `linux/arm64` platforms, making them compatible with:
+- x86_64 servers and workstations
+- ARM64 devices like Apple Silicon Macs (M1/M2/M3)
+- ARM-based servers and Raspberry Pi devices
+
 ## Security Considerations
 
 1. Change default authentication credentials
